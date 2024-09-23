@@ -1,6 +1,42 @@
+server:
+  port: 7878
+
+
 spring:
   application:
     name: orca
+  data:
+    rest:
+      basePath: /api
+  datasource:
+    url: jdbc:postgresql://localhost:5437/orcadb
+    username: orca
+    password: orca
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
 
-server:
-  port: 7878
+# Configurações de segurança
+security:
+  jwt:
+    secret-key: mySuperSecretKeyForJWTTokenGeneration123!
+    expire-length: 3600000 # 1 hora
+
+logging:
+  level:
+    org.hibernate.SQL: info
+
+# Configurações do SpringDoc OpenAPI
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
