@@ -1,20 +1,32 @@
 package com.orca.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.orca.dto.CreateUserRequest;
+import com.orca.dto.CreateUserResponse;
 import com.orca.model.User;
 import com.orca.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final ObjectMapper mapper;
 
-    public User registerUser(User user) {
+    @Transactional
+    public CreateUserResponse createUser(CreateUserRequest dto) {
+        User user = mapper.convertValue(dto, User.class);
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        roleRepository.findByName("ROLE_SIMPLE").ifPresent(role -> user.getRoles().add(role));
+
+
+        return mapper.convertValue(
+                userRepository.save(user),
+                CreateUserResponse.class);
     }
 }

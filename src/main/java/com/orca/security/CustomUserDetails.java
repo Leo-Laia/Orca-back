@@ -20,7 +20,7 @@ public class CustomUserDetails implements UserDetails {
 
     public CustomUserDetails(User user) {
         this.id = user.getId();
-        this.username = user.getLogin();
+        this.username = user.getEmail();
         this.password = user.getPassword();
         this.active = user.getActive();
         this.authorities = user.getRoles().stream()

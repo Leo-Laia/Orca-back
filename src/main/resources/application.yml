@@ -5,9 +5,6 @@ server:
 spring:
   application:
     name: orca
-  data:
-    rest:
-      basePath: /api
   datasource:
     url: jdbc:postgresql://localhost:5437/orcadb
     username: orca
@@ -24,7 +21,7 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
-# Configurações de segurança
+# ConfiguraÃ§Ãµes de seguranÃ§a
 security:
   jwt:
     secret-key: mySuperSecretKeyForJWTTokenGeneration123!
@@ -34,7 +31,7 @@ logging:
   level:
     org.hibernate.SQL: info
 
-# Configurações do SpringDoc OpenAPI
+# ConfiguraÃ§Ãµes do SpringDoc OpenAPI
 springdoc:
   api-docs:
     path: /v3/api-docs
