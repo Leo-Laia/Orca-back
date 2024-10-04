@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orca.dto.CreateUserRequest;
 import com.orca.dto.CreateUserResponse;
 import com.orca.model.User;
+import com.orca.repositories.RoleRepository;
 import com.orca.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final ObjectMapper mapper;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Transactional
     public CreateUserResponse createUser(CreateUserRequest dto) {
